@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+
+    <head>
+
+        <title>Form Registrazione Utente</title>
+
+    </head>
+
+    <body>
+
+        <h1 id="title" style="  color:blue; text-align: center; margin-bottom: 20px;">REGISTRAZIONE NUOVO UTENTE</h1>
+        
+        <div style="margin-left: 20px; border: 1px solid black; width: 1000px; height: 550px; margin-left:200px;padding-left:100px; padding-top: 50px;">
+
+            <h3 style="margin-bottom:50px">Inserire di seguito i dati richiesti</h3>
+
+            <form name="nuovoUtente" action="/registrazione" method="POST">
+
+                <div style="margin-bottom: 15px">
+                    <label style="font-weight: bold;" for="nome">Nome *</label>
+                    <div class="row"><input type="text" id="nome" class="input" name="nome" value=""></div>
+                </div>
+
+                <div style="margin-bottom: 15px">
+                    <label style="font-weight: bold;" for="cognome">Cognome *</label>
+                    <div class="row"><input type="text" id="cognome" class="input" name="cognome" value=""></div>
+                </div>
+
+                <div style="margin-bottom: 15px">
+                    <label style="font-weight: bold;" for="citta">Citta'</label>
+                    <div class="row"><input type="text" id="citta" class="input" name="citta" value=""></div>
+                </div>
+
+                <div style="margin-bottom: 15px">
+                    <label style="font-weight: bold;" for="indirizzo">Indirizzo</label>
+                    <div class="row"><input type="text" id="indirizzo" class="input" name="indirizzo" value=""></div>
+                </div>
+
+                <div style="margin-bottom: 15px">
+                    <label style="font-weight: bold;" for="cell">Numero di telefono *</label>
+                    <div class="row"><input type="text" id="cell" class="input" name="cell" value=""></div>
+                </div>
+
+                <div style="margin-bottom: 15px">
+                    <label style="font-weight: bold;" for="cell">E-mail *</label>
+                    <div class="row"><input type="text" id="email" class="input" name="email" value=""></div>
+                </div>
+
+                <div style="margin-bottom: 15px">
+                    <label style="font-weight: bold;" for="password">Password * (deve contenere almeno 1 lettera Maiuscola, 1 lettera minuscola, 1 numero, 1 carattere speciale, lunghezza => 8 caratteri)</label>
+                    <div class="row"><input type="password" id="password" name="password" value=""></div>
+                </div>
+              
+                <div style=" text-align: center; margin-top: 50px;">
+                    <button id="button" type="submit" value="Submit" onclick="validateForm()">Registrati</button>
+                </div>
+
+            </form> 
+
+        </div>
+        
+
+        <script>
+
+            function validateForm() {
+
+                let error = false;
+
+                let nome = document.getElementById("nome").value;
+                let cognome = document.getElementById("cognome").value;
+                let citta = document.getElementById("citta").value;
+                let indirizzo = document.getElementById("indirizzo").value;
+                let cell = document.getElementById("cell").value;
+                let email = document.getElementById("email").value;
+                let password = document.getElementById("password").value;
+
+                let checkPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+                let checkEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                let checkCell = /^[0-9]+$/;
+              
+                
+                if (nome == '' || cognome == '' || cell == '' || email == '' || password == '') {
+                    alert("TUTTI I CAMPI CON * SONO OBBLIGATORI");
+                    return false;
+                }
+                else{
+                    if (!cell.match(checkCell) || cell.length < 10) {
+                    alert("CELLULARE inserito non è numerico"); 
+                    error=true;
+                    } 
+
+                    if (!email.match(checkEmail)){
+                        alert("EMAIL non valida");
+                        error=true;
+                    }
+
+                    if (password.length < 8) {
+                        alert("PASSWORD non valida, obbligatori almeno 8 caratteri");
+                        error=true;
+                    } 
+                    else { 
+                        if (!password.match(checkPassword)){
+                            alert("PASSWORD non valida, obbligatori i caratteri richiesti: \n - un numero\n - un carattere speciale \n - una lettera maiuscola \n - una lettera minuscola");
+                            error=true;
+                        }
+                    }
+
+                    if (error == false) {
+
+                        alert("\n Registrazione avvenuta con successo!\n\nNome: " + nome + "\nCognome: " + cognome + "\nCittà: " + citta +"\nIndirizzo: " + indirizzo +"\nNumero di telefono: " + cell + "\nE-mail: " + email + "\nPassword: " + password);
+                        
+                    }
+                   
+                }
+
+                
+            }
+
+        </script>
+
+    </body>   
+    
+</html>
+
+
+

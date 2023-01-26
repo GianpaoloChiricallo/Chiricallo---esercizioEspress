@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+
+    <head>
+
+        <title>Login Utente</title>
+
+    </head>
+
+    <body>
+
+        <h1 id="title" style="  color:blue; text-align: center; margin-bottom: 20px;">LOGIN AUTENTICAZIONE UTENTE</h1>
+        
+        <div style="border: 1px solid black; width: 1000px; height: 550px; margin-left:300px;padding-left:100px; padding-top: 50px;">
+
+
+            <form name="loginUtente" action="/login" method="POST">
+
+
+                <div style="margin-top:50px; margin-bottom: 50px">
+                    <label style="font-weight: bold; font-size: 20px;" for="cell">E-mail *</label>
+                    <div><input type="text" id="email"  name="email" value=""></div>
+                </div>
+
+                <div style="margin-bottom: 80px">
+                    <label style="font-weight: bold; font-size: 20px;" for="password">Password * (deve contenere almeno 1 lettera Maiuscola, 1 lettera minuscola, 1 numero, 1 carattere speciale, lunghezza => 8 caratteri)</label>
+                    <div class="row"><input type="password" id="password" name="password" value=""></div>
+                </div>
+              
+                <div style=" text-align: center; margin-top: 50px; ">
+                    <button id="button" style=" text-align: center; margin-top: 50px; width: 100px; height: 30px; border-radius: 10px;" type="submit" value="Submit" onclick="validateForm()">Login</button>
+                </div>
+
+            </form> 
+
+        </div>
+        
+
+        <script>
+
+            function validateForm() {
+
+                let error = false;
+
+                let email = document.getElementById("email").value;
+                let password = document.getElementById("password").value;
+
+                let checkPassword = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+                let checkEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+                let checkCell = /^[0-9]+$/;
+              
+                
+                if ( email == '' || password == '') {
+                    alert("E-MAIL E PASSWORD SONO OBBLIGATORI");
+                    return false;
+                }
+                else{
+
+                    if (!email.match(checkEmail)){
+                        alert("EMAIL non valida");
+                        error=true;
+                    }
+
+                    if (password.length < 8) {
+                        alert("PASSWORD non valida, obbligatori almeno 8 caratteri");
+                        error=true;
+                    } 
+                    else { 
+                        if (!password.match(checkPassword)){
+                            alert("PASSWORD non valida, obbligatori i caratteri richiesti: \n - un numero\n - un carattere speciale \n - una lettera maiuscola \n - una lettera minuscola");
+                            error=true;
+                        }
+                    }
+                }
+
+                if (error == true) {
+
+                    alert("LOGIN non possibile, controllare i campi");
+                    location.href = '/login';
+                } else {
+                    location.href = '/autenticato';
+                }
+                
+            }
+
+        </script>
+
+    </body>   
+    
+</html>
+
+
+
